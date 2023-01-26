@@ -13,25 +13,28 @@
     <div class="container">
         <h1>Add a concept</h1>
 
-        <form id="taxonomyForm" action="">
+        <form id="taxonomyForm" action="" novalidate>
             <div class="row p-2">
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Topic" aria-label="Topic" id="firstName"
-                        required>
+                    <input type="text" class="form-control" placeholder="Topic" aria-label="Topic" id="topic" required
+                        minlength="2">
+                    <div class="invalid-feedback">Please provide a valid topic
+                    </div>
                 </div>
+
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Subtopic" aria-label="Subtopic" id="lastName"
-                        required>
+                    <input type="text" class="form-control" placeholder="Subtopic" aria-label="Subtopic" id="subtopic"
+                        required minlength="2">
+                    <div class="invalid-feedback">Please provide a valid subtopic</div>
                 </div>
             </div>
             <div class="row p-2">
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Concept" aria-label="Concept" id="phone"
-                        required>
+                    <input type="text" class="form-control" placeholder="Concept" aria-label="Concept" id="concept">
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Sub-concept" aria-label="Sub-concept" id="city"
-                        required>
+                    <input type="text" class="form-control" placeholder="Sub-concept" aria-label="Sub-concept"
+                        id="subconcept">
                 </div>
             </div>
             <button type="submit" class="btn btn-primary" type="button" id="submitButton">
@@ -41,6 +44,9 @@
             </button>
             <div class="alert alert-success mt-2 d-none" role="alert" id="success">
                 Sent successfully!
+            </div>
+            <div class="alert alert-danger mt-2 d-none" role="alert" id="unknownError">
+                Something went wrong!
             </div>
         </form>
     </div>

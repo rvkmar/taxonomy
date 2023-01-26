@@ -1,21 +1,36 @@
 const taxonomyForm = document.getElementById("taxonomyForm");
-const firstName = document.getElementById("firstName");
-const lastName = document.getElementById("lastName");
-const phone = document.getElementById("phone");
-const city = document.getElementById("city");
+const topic = document.getElementById("topic");
+const subtopic = document.getElementById("subtopic");
+const concept = document.getElementById("concept");
+const subconcept = document.getElementById("subconcept");
 const submitButton = document.getElementById("submitButton");
 const buttonSpinner = document.getElementById("buttonSpinner");
 const buttonText = document.getElementById("buttonText");
 const successAlert = document.getElementById("success");
+const unknownError = document.getElementById("unknownError");
 
 function afterSubmit(e){
     e.preventDefault();
 
+    if (taxonomyForm.checkValidity() === false){
+        event.stopPropagation();
+        for(field of taxonomyForm.elements){
+            if(!field.checkValidity()){
+                field.classList.add("is-invalid");
+            }
+        }
+        return;
+    }
+
+    for(field of taxonomyForm.elements){
+        field.classList.remove("is-invalid");
+    }
+
     let saveInfo = {
-        topic: firstName.value,
-        subTopic: lastName.value,
-        concept: phone.value,
-        subConcept: city.value
+        topic: topic.value,
+        subTopic: subtopic.value,
+        concept: concept.value,
+        subConcept: subconcept.value
     };
 
     const url = "https://script.google.com/macros/s/AKfycbxtrLIML8ctlLMO4fx7sNNDIJXDM9yubFVLI3uv0IXsxpvcZ927MjNK0xCiMOBGUtSB/exec";
@@ -43,6 +58,19 @@ function afterSubmit(e){
         taxonomyForm.reset();
         submitButton.disabled = false;
         submitButton.classList.remove("d-none");
+    })
+    .catch(err => {
+        console.log(err);
+        if(err){
+            unknownError.classList.remove("d-none");
+            setTimeout(function(){
+                unknownError.classList.add("d-none");
+                buttonText.textContent = "Send";
+                buttonSpinner.classList.add("d-none");
+                submitButton.disabled = false;
+            },3000);
+        }
+        
     });
 }
 
